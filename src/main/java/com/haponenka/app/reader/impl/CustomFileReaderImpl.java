@@ -1,6 +1,6 @@
 package com.haponenka.app.reader.impl;
 
-import com.haponenka.app.exception.CustomArrayException;
+import com.haponenka.app.exception.CustomFileException;
 import com.haponenka.app.reader.CustomFileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,10 +12,10 @@ import org.apache.logging.log4j.Logger;
 
 public class CustomFileReaderImpl implements CustomFileReader {
 
-  private final static Logger LOGGER = LogManager.getLogger(CustomFileReaderImpl.class);
+  private static final Logger LOGGER = LogManager.getLogger(CustomFileReaderImpl.class);
 
   @Override
-  public List<String> readLines(String relativeFilePath) throws CustomArrayException {
+  public List<String> readLines(String relativeFilePath) throws CustomFileException {
     if (relativeFilePath != null && !relativeFilePath.isEmpty()) {
       Path path = Paths.get(relativeFilePath);
       if (Files.exists(path)) {
@@ -25,15 +25,15 @@ public class CustomFileReaderImpl implements CustomFileReader {
           return lines;
         } catch (IOException e) {
           LOGGER.error("Error reading file: {}", relativeFilePath, e);
-          throw new CustomArrayException("Error during file reading", e);
+          throw new CustomFileException("Error during file reading", e);
         }
       } else {
         LOGGER.error("File does not exist: {}", relativeFilePath);
-        throw new CustomArrayException("File not found: " + relativeFilePath);
+        throw new CustomFileException("File not found: " + relativeFilePath);
       }
     } else {
       LOGGER.error("Provided path is null or empty");
-      throw new CustomArrayException("Invalid file path argument");
+      throw new CustomFileException("Invalid file path argument");
     }
   }
 }

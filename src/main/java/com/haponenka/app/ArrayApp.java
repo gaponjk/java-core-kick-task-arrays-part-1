@@ -3,6 +3,7 @@ package com.haponenka.app;
 import com.haponenka.app.entity.CustomArray;
 import com.haponenka.app.exception.CustomArrayException;
 import com.haponenka.app.factory.CustomArrayFactory;
+import com.haponenka.app.factory.impl.CustomArrayFactoryImpl;
 import com.haponenka.app.parser.CustomParser;
 import com.haponenka.app.parser.impl.CustomParserImpl;
 import com.haponenka.app.reader.CustomFileReader;
@@ -18,9 +19,9 @@ import java.util.OptionalInt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Main {
+public class ArrayApp {
 
-  private static final Logger LOGGER = LogManager.getLogger(Main.class);
+  private static final Logger LOGGER = LogManager.getLogger(ArrayApp.class);
   private static final String DATA_FILE_PATH = "data/arrays.txt";
 
   public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class Main {
     CustomFileReader fileReader = new CustomFileReaderImpl();
     ArrayLineValidator validator = new ArrayLineValidator();
     CustomParser parser = new CustomParserImpl(validator);
-    CustomArrayFactory factory = new CustomArrayFactory();
+    CustomArrayFactory factory = new CustomArrayFactoryImpl();
     ArrayService arrayService = new ArrayServiceImpl();
     ArraySortService sortService = new ArraySortServiceImpl();
 

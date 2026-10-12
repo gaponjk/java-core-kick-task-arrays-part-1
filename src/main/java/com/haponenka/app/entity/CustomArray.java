@@ -57,11 +57,6 @@ public class CustomArray {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("CustomArray{elements=");
-    String arrayString = Arrays.toString(this.elements);
-    builder.append(arrayString);
-    builder.append('}');
-    return builder.toString();
+    return "CustomArray{elements=" + Arrays.toString(this.elements) + '}';
   }
 }

@@ -16,6 +16,8 @@ import com.haponenka.app.validator.ArrayLineValidator;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+
+import com.haponenka.app.validator.impl.ArrayLineValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +30,7 @@ public class ArrayApp {
     LOGGER.info("Application started");
 
     CustomFileReader fileReader = new CustomFileReaderImpl();
-    ArrayLineValidator validator = new ArrayLineValidator();
+    ArrayLineValidator validator = new ArrayLineValidatorImpl();
     CustomParser parser = new CustomParserImpl(validator);
     CustomArrayFactory factory = new CustomArrayFactoryImpl();
     ArrayService arrayService = new ArrayServiceImpl();

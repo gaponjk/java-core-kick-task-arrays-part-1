@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.haponenka.app.exception.CustomArrayException;
 import com.haponenka.app.validator.ArrayLineValidator;
+import com.haponenka.app.validator.impl.ArrayLineValidatorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -15,7 +16,7 @@ class CustomParserImplTest {
 
   @BeforeEach
   void setUp() {
-    ArrayLineValidator validator = new ArrayLineValidator();
+    ArrayLineValidator validator = new ArrayLineValidatorImpl();
     parser = new CustomParserImpl(validator);
   }
 

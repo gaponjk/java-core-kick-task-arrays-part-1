@@ -10,7 +10,8 @@ import org.apache.logging.log4j.Logger;
 public class CustomParserImpl implements CustomParser {
 
   private static final Logger LOGGER = LogManager.getLogger(CustomParserImpl.class);
-  private static final Pattern DELIMITER_PATTERN = Pattern.compile("[,;\\s]+");
+  private static final Pattern DELIMITER_PATTERN =
+      Pattern.compile("[,;\\s]+|(?<=\\d)-(?=[\\d\\-])");
 
   private final ArrayLineValidator validator;
 

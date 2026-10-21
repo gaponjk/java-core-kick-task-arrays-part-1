@@ -13,11 +13,10 @@ import com.haponenka.app.service.ArraySortService;
 import com.haponenka.app.service.impl.ArrayServiceImpl;
 import com.haponenka.app.service.impl.ArraySortServiceImpl;
 import com.haponenka.app.validator.ArrayLineValidator;
+import com.haponenka.app.validator.impl.ArrayLineValidatorImpl;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
-
-import com.haponenka.app.validator.impl.ArrayLineValidatorImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

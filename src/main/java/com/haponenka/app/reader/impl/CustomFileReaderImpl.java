@@ -5,7 +5,6 @@ import com.haponenka.app.reader.CustomFileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,8 +15,12 @@ public class CustomFileReaderImpl implements CustomFileReader {
 
   @Override
   public List<String> readLines(String relativeFilePath) throws CustomFileException {
-    if (relativeFilePath != null && !relativeFilePath.isEmpty()) {
-      Path path = Paths.get(relativeFilePath);
+    if (relativeFilePath != null && !relativeFilePath.isBlank()) {
+      Path path = Path.of(relativeFilePath);
+      if (path.isAbsolute() || relativeFilePath.contains("src/")) {
+        throw new CustomFileException(
+            "File path must be relative and cannot contain 'src': " + relativeFilePath);
+      }
       if (Files.exists(path)) {
         try {
           List<String> lines = Files.readAllLines(path);

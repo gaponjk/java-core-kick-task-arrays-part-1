@@ -23,9 +23,10 @@ public class ArrayServiceImpl implements ArrayService {
       }
       LOGGER.info("Min value found: {}", min);
       return OptionalInt.of(min);
+    } else {
+      LOGGER.warn("CustomArray is null or empty, min cannot be determined");
+      return OptionalInt.empty();
     }
-    LOGGER.warn("CustomArray is null or empty, min cannot be determined");
-    return OptionalInt.empty();
   }
 
   @Override
@@ -40,9 +41,10 @@ public class ArrayServiceImpl implements ArrayService {
       }
       LOGGER.info("Max value found: {}", max);
       return OptionalInt.of(max);
+    } else {
+      LOGGER.warn("CustomArray is null or empty, max cannot be determined");
+      return OptionalInt.empty();
     }
-    LOGGER.warn("CustomArray is null or empty, max cannot be determined");
-    return OptionalInt.empty();
   }
 
   @Override
@@ -55,23 +57,26 @@ public class ArrayServiceImpl implements ArrayService {
       }
       LOGGER.info("Sum calculated: {}", sum);
       return OptionalInt.of(sum);
+    } else {
+      LOGGER.warn("CustomArray is null or empty, sum cannot be calculated");
+      return OptionalInt.empty();
     }
-    LOGGER.warn("CustomArray is null or empty, sum cannot be calculated");
-    return OptionalInt.empty();
   }
 
   @Override
   public OptionalDouble calculateAverage(CustomArray customArray) {
-    if (customArray != null && customArray.getLength() > 0) {
-      OptionalInt sumOptional = calculateSum(customArray);
-      if (sumOptional.isPresent()) {
-        int sum = sumOptional.getAsInt();
-        double average = (double) sum / customArray.getLength();
-        LOGGER.info("Average calculated: {}", average);
-        return OptionalDouble.of(average);
-      }
+    OptionalInt sumOptional = calculateSum(customArray);
+
+    if (sumOptional.isPresent()) {
+      int sum = sumOptional.getAsInt();
+      int length = customArray.getLength();
+      double average = (double) sum / length;
+
+      LOGGER.info("Average calculated: {}", average);
+      return OptionalDouble.of(average);
+    } else {
+      LOGGER.warn("CustomArray is null or empty, average cannot be calculated");
+      return OptionalDouble.empty();
     }
-    LOGGER.warn("CustomArray is null or empty, average cannot be calculated");
-    return OptionalDouble.empty();
   }
 }

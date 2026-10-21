@@ -20,11 +20,10 @@ import com.haponenka.app.service.impl.ArrayServiceImpl;
 import com.haponenka.app.service.impl.ArraySortServiceImpl;
 import com.haponenka.app.validator.ArrayLineValidator;
 import com.haponenka.app.validator.impl.ArrayLineValidatorImpl;
+import com.haponenka.app.warehouse.ArrayWarehouse;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
-
-import com.haponenka.app.warehouse.ArrayWarehouse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,21 +94,21 @@ public class ArrayApp {
     LOGGER.info("Application completed successfully");
     ArrayObserver observer = new ArrayObserverImpl();
 
-// 2. Создание массива с регистрацией в Observer
+    // 2. Создание массива с регистрацией в Observer
     CustomArray array1 = new CustomArray("1", 10, 20, 30);
     array1.attach(observer);
 
-// 3. Первичная инициализация в Warehouse
+    // 3. Первичная инициализация в Warehouse
     observer.update(new ArrayEvent(array1));
 
-// 4. Добавление в репозиторий
+    // 4. Добавление в репозиторий
     CustomArrayRepository repository = CustomArrayRepositoryImpl.getInstance();
     repository.add(array1);
 
-// 5. Любое изменение элемента автоматически пересчитает Warehouse
+    // 5. Любое изменение элемента автоматически пересчитает Warehouse
     array1.setElement(0, 100);
 
-// 6. Проверка обновленных значений из Warehouse
+    // 6. Проверка обновленных значений из Warehouse
     ArrayStatistics stats = ArrayWarehouse.getInstance().get("1");
     LOGGER.info("New max in Warehouse: {}", stats.getMax()); // Будет 100
   }

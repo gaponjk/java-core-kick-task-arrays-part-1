@@ -6,9 +6,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public interface CustomArrayRepository {
-    void add(CustomArray customArray);
-    void remove(CustomArray customArray);
-    List<CustomArray> query(ArraySpecification specification);
-    List<CustomArray> sort(Comparator<CustomArray> comparator);
-    List<CustomArray> getAll();
+  void add(CustomArray customArray);
+
+  void remove(CustomArray customArray);
+
+  List<CustomArray> query(ArraySpecification specification);
+
+  List<CustomArray> sort(Comparator<CustomArray> comparator);
+
+  List<CustomArray> getAll();
 }

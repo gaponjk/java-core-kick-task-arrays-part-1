@@ -13,34 +13,34 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ArrayObserverImpl implements ArrayObserver {
-    private static final Logger LOGGER = LogManager.getLogger(ArrayObserverImpl.class);
-    private final ArrayService arrayService;
+  private static final Logger LOGGER = LogManager.getLogger(ArrayObserverImpl.class);
+  private final ArrayService arrayService;
 
-    public ArrayObserverImpl() {
-        this.arrayService = new ArrayServiceImpl();
+  public ArrayObserverImpl() {
+    this.arrayService = new ArrayServiceImpl();
+  }
+
+  @Override
+  public void update(ArrayEvent event) {
+    if (event != null && event.getSource() != null) {
+      CustomArray array = event.getSource();
+      String id = array.getId();
+
+      OptionalInt minOpt = this.arrayService.findMin(array);
+      OptionalInt maxOpt = this.arrayService.findMax(array);
+      OptionalInt sumOpt = this.arrayService.calculateSum(array);
+      OptionalDouble avgOpt = this.arrayService.calculateAverage(array);
+
+      int min = minOpt.isPresent() ? minOpt.getAsInt() : 0;
+      int max = maxOpt.isPresent() ? maxOpt.getAsInt() : 0;
+      int sum = sumOpt.isPresent() ? sumOpt.getAsInt() : 0;
+      double avg = avgOpt.isPresent() ? avgOpt.getAsDouble() : 0.0;
+
+      ArrayStatistics statistics = new ArrayStatistics(min, max, sum, avg);
+      ArrayWarehouse.getInstance().put(id, statistics);
+      LOGGER.info("Warehouse statistics updated for array id: {}", id);
+    } else {
+      LOGGER.warn("Received empty or null array event in observer");
     }
-
-    @Override
-    public void update(ArrayEvent event) {
-        if (event != null && event.getSource() != null) {
-            CustomArray array = event.getSource();
-            String id = array.getId();
-
-            OptionalInt minOpt = this.arrayService.findMin(array);
-            OptionalInt maxOpt = this.arrayService.findMax(array);
-            OptionalInt sumOpt = this.arrayService.calculateSum(array);
-            OptionalDouble avgOpt = this.arrayService.calculateAverage(array);
-
-            int min = minOpt.isPresent() ? minOpt.getAsInt() : 0;
-            int max = maxOpt.isPresent() ? maxOpt.getAsInt() : 0;
-            int sum = sumOpt.isPresent() ? sumOpt.getAsInt() : 0;
-            double avg = avgOpt.isPresent() ? avgOpt.getAsDouble() : 0.0;
-
-            ArrayStatistics statistics = new ArrayStatistics(min, max, sum, avg);
-            ArrayWarehouse.getInstance().put(id, statistics);
-            LOGGER.info("Warehouse statistics updated for array id: {}", id);
-        } else {
-            LOGGER.warn("Received empty or null array event in observer");
-        }
-    }
+  }
 }

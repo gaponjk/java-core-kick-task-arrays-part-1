@@ -7,21 +7,21 @@ import com.haponenka.app.service.impl.ArrayServiceImpl;
 import java.util.OptionalInt;
 
 public class SumGreaterThanSpecification implements ArraySpecification {
-    private final int threshold;
-    private final ArrayService arrayService;
+  private final int threshold;
+  private final ArrayService arrayService;
 
-    public SumGreaterThanSpecification(int threshold) {
-        this.threshold = threshold;
-        this.arrayService = new ArrayServiceImpl();
-    }
+  public SumGreaterThanSpecification(int threshold) {
+    this.threshold = threshold;
+    this.arrayService = new ArrayServiceImpl();
+  }
 
-    @Override
-    public boolean specify(CustomArray customArray) {
-        OptionalInt sum = this.arrayService.calculateSum(customArray);
-        if (sum.isPresent()) {
-            return sum.getAsInt() > this.threshold;
-        } else {
-            return false;
-        }
+  @Override
+  public boolean specify(CustomArray customArray) {
+    OptionalInt sum = this.arrayService.calculateSum(customArray);
+    if (sum.isPresent()) {
+      return sum.getAsInt() > this.threshold;
+    } else {
+      return false;
     }
+  }
 }

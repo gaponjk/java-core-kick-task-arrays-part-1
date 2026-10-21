@@ -21,7 +21,8 @@ public class CustomArray {
       this.elements = new int[0];
     }
   }
-  public CustomArray( int... elements) {
+
+  public CustomArray(int... elements) {
     this.id = String.valueOf(UUID.randomUUID());
     this.observers = new ArrayList<>();
     if (elements != null) {
@@ -31,7 +32,7 @@ public class CustomArray {
     }
   }
 
-  public String  getId() {
+  public String getId() {
     return this.id;
   }
 
@@ -87,7 +88,7 @@ public class CustomArray {
       return false;
     }
     CustomArray that = (CustomArray) o;
-    if (!this.id.equals( that.id)) {
+    if (!this.id.equals(that.id)) {
       return false;
     }
     return Arrays.equals(this.elements, that.elements);
